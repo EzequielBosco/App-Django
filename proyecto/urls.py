@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ejemplo.views import ListarPersonas
+from ejemplo.views import ListarPersonas, CargarPersonas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('personas/', ListarPersonas.as_view()),
+    path('personas/cargar', CargarPersonas.as_view()),
 ]
