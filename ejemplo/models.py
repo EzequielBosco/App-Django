@@ -6,4 +6,4 @@ class Persona(models.Model):
     fecha_de_nacimiento = models.DateField()
 
     def __str__(self):
-        return f"Nombre:{self.nombre}, Apellido:{self.apellido}, Fecha Nacimiento:{self.fecha_de_nacimiento}"
+        return f" ID:{self.id} Nombre:{self.nombre}, Apellido:{self.apellido}, Fecha Nacimiento:{self.fecha_de_nacimiento}"

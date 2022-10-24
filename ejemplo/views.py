@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views import View
 from ejemplo.models import Persona
 from ejemplo.forms import PersonaForm
@@ -25,3 +25,22 @@ class CargarPersonas(View):
             form.save()
             form = self.form_class(initial=self.initial)
         return render(request, self.template_name, {"form":form})
+
+class ActualizarPersona(View):
+    template_name = "ejemplo/actualizar_persona.html"
+    success_template = "ejemplo/exito.html"
+    form_class = PersonaForm
+    initial = {"nombre":"","apellido":"","fecha_de_nacimiento":""}
+
+    def get(self, request, pk):
+        persona = get_object_or_404(Persona, pk=pk)
+        form = self.form_class(instance=persona)
+        return render(request, self.template_name, {"form":form, "pk":pk})
+
+    def post(self, request, pk):
+        persona = get_object_or_404(Persona, pk=pk)
+        form = self.form_class(request.POST, instance=persona)
+        if form.is_valid():
+            form.save()
+            form = self.form_class(initial=self.initial)
+        return render(request, self.success_template)
